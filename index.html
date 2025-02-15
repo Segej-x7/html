@@ -37,17 +37,17 @@
                 const utterance = new SpeechSynthesisUtterance(textToSpeak);
                 utterance.lang = 'en-US'; // Явно указываем язык (американский английский)
 
-                // Поиск подходящего голоса
+                // Поиск мужского голоса
                 const voices = window.speechSynthesis.getVoices();
-                const englishVoice = voices.find(voice => voice.lang === 'en-US');
+                const maleVoice = voices.find(voice => voice.lang === 'en-US' && voice.name.includes('Male'));
 
-                if (englishVoice) {
-                    utterance.voice = englishVoice; // Устанавливаем подходящий голос
+                if (maleVoice) {
+                    utterance.voice = maleVoice; // Устанавливаем мужской голос
                 } else {
-                    console.warn('Подходящий английский голос не найден. Будет использован голос по умолчанию.');
+                    console.warn('Мужской английский голос не найден. Будет использован голос по умолчанию.');
                 }
 
-                utterance.rate = 1; // Скорость речи (1 - нормальная скорость)
+                utterance.rate = 0.8; // Скорость речи (0.8 - медленнее, чем 1)
                 utterance.pitch = 1; // Высота голоса (1 - нормальная высота)
 
                 // Озвучиваем текст
