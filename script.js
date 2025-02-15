@@ -95,7 +95,7 @@ function speakText(text) {
             console.warn('Женский английский голос не найден. Будет использован голос по умолчанию.');
         }
 
-        utterance.rate = 0.8;
+        utterance.rate = 0.6;
         utterance.pitch = 1;
 
         window.speechSynthesis.speak(utterance);
