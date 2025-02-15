@@ -10,6 +10,11 @@ fetch('words.json')
     })
     .catch(error => console.error('Ошибка загрузки вопросов:', error));
 
+// Функция для перемешивания массива
+function shuffleArray(array) {
+    return array.sort(() => Math.random() - 0.5);
+}
+
 // Функция для отображения вопроса и вариантов ответа
 function showQuestion() {
     const questionText = document.getElementById('question-text');
@@ -23,8 +28,11 @@ function showQuestion() {
         // Очищаем контейнер с вариантами ответа
         optionsContainer.innerHTML = '';
 
-        // Добавляем варианты ответа
-        question.options.forEach((option, index) => {
+        // Перемешиваем варианты ответа
+        const shuffledOptions = shuffleArray([...question.options]);
+
+        // Добавляем перемешанные варианты ответа
+        shuffledOptions.forEach((option) => {
             const optionElement = document.createElement('div');
             optionElement.classList.add('option');
             optionElement.textContent = option;
@@ -65,7 +73,7 @@ document.getElementById('check-answer').addEventListener('click', () => {
         }
     } else {
         resultText.textContent = 'Выберите вариант ответа!';
-        }
+    }
 });
 
 // Функция для озвучки вопроса
@@ -95,7 +103,7 @@ function speakText(text) {
             console.warn('Женский английский голос не найден. Будет использован голос по умолчанию.');
         }
 
-        utterance.rate = 0.6;
+        utterance.rate = 0.8;
         utterance.pitch = 1;
 
         window.speechSynthesis.speak(utterance);
