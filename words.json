@@ -1,0 +1,22 @@
+[
+    {
+        "question": "How are you?",
+        "answer": "I am fine"
+    },
+    {
+        "question": "What is your name?",
+        "answer": "My name is John"
+    },
+    {
+        "question": "Where are you from?",
+        "answer": "I am from Russia"
+    },
+    {
+        "question": "What is your favorite color?",
+        "answer": "My favorite color is blue"
+    },
+    {
+        "question": "How old are you?",
+        "answer": "I am 25 years old"
+    }
+]
