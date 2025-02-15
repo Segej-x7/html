@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<!-- Видео с YouTube -->
+    <div class="container">
+        <h1>Тест по английскому языку</h1>
+
+        <!-- Видео с YouTube -->
         <div class="video-container">
             <iframe
                 width="560"
@@ -20,22 +23,20 @@
             </iframe>
         </div>
 
-    
-    <div class="container">
-        <h1>Тест по английскому языку</h1>
-
         <!-- Тест -->
-        <div id="question-container">
-            <p id="question-text"></p>
-            <div id="options-container">
-                <!-- Варианты ответов будут добавлены с помощью JavaScript -->
+        <div class="test-container">
+            <div id="question-container">
+                <p id="question-text"></p>
+                <div id="options-container">
+                    <!-- Варианты ответов будут добавлены с помощью JavaScript -->
+                </div>
+                <button id="check-answer">Проверить</button>
+                <button id="speak-question">Озвучить вопрос</button>
             </div>
-            <button id="check-answer">Проверить</button>
-            <button id="speak-question">Озвучить вопрос</button>
-        </div>
-        <div id="result-container">
-            <p id="result-text"></p>
-            <button id="next-question">Следующий вопрос</button>
+            <div id="result-container">
+                <p id="result-text"></p>
+                <button id="next-question">Следующий вопрос</button>
+            </div>
         </div>
     </div>
 
