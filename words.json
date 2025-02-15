@@ -1,22 +1,27 @@
 [
     {
         "question": "How are you?",
-        "answer": "I am fine"
+        "options": ["Я в порядке", "Я устал", "Я голоден", "Я счастлив"],
+        "answer": "Я в порядке"
     },
     {
         "question": "What is your name?",
-        "answer": "My name is John"
+        "options": ["Меня зовут Анна", "Мне 25 лет", "Я из России", "Я программист"],
+        "answer": "Меня зовут Анна"
     },
     {
         "question": "Where are you from?",
-        "answer": "I am from Russia"
+        "options": ["Я из Москвы", "Я студент", "Мне нравится музыка", "Я работаю"],
+        "answer": "Я из Москвы"
     },
     {
         "question": "What is your favorite color?",
-        "answer": "My favorite color is blue"
+        "options": ["Мой любимый цвет синий", "Я люблю читать", "Мне нравится спорт", "Я учу английский"],
+        "answer": "Мой любимый цвет синий"
     },
     {
         "question": "How old are you?",
-        "answer": "I am 25 years old"
+        "options": ["Мне 30 лет", "Я инженер", "Я люблю путешествовать", "Мой любимый цвет зеленый"],
+        "answer": "Мне 30 лет"
     }
 ]
