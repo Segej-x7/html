@@ -30,19 +30,9 @@
 
     <script>
         let isSpeaking = false;
-        let voicesLoaded = false;
-
-        window.speechSynthesis.onvoiceschanged = () => {
-            voicesLoaded = true;
-            console.log('Голоса загружены.');
-        };
 
         function speakText() {
             if (isSpeaking) return;
-            if (!voicesLoaded) {
-                alert('Голоса еще не загружены. Попробуйте еще раз.');
-                return;
-            }
 
             const textToSpeak = document.getElementById('textToSpeak').value;
 
@@ -59,7 +49,7 @@
                     console.warn('Женский английский голос не найден. Будет использован голос по умолчанию.');
                 }
 
-                utterance.rate = 0.7; // Скорость речи
+                utterance.rate = 0.8; // Скорость речи
                 utterance.pitch = 1; // Высота голоса
 
                 isSpeaking = true;
@@ -73,6 +63,11 @@
                 alert('Ваш браузер не поддерживает озвучку текста.');
             }
         }
+
+        // Инициализация голосов при загрузке страницы
+        window.speechSynthesis.onvoiceschanged = () => {
+            console.log('Голоса загружены.');
+        };
     </script>
 </body>
 </html>
