@@ -45,9 +45,6 @@ function showQuestion() {
         });
 
         resultText.textContent = '';
-
-        // Автоматическое воспроизведение звука
-        speakText(question.question);
     } else {
         questionText.textContent = 'Тест завершен!';
         optionsContainer.style.display = 'none';
