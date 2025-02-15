@@ -1,58 +1,82 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+let currentQuestionIndex = 0;
+let questions = [];
+
+// Загрузка вопросов из JSON-файла
+fetch('words.json')
+    .then(response => response.json())
+    .then(data => {
+        questions = data;
+        showQuestion();
+    })
+    .catch(error => console.error('Ошибка загрузки вопросов:', error));
+
+// Функция для отображения вопроса
+function showQuestion() {
+    const questionText = document.getElementById('question-text');
+    const answerInput = document.getElementById('answer-input');
+    const resultText = document.getElementById('result-text');
+
+    if (currentQuestionIndex < questions.length) {
+        const question = questions[currentQuestionIndex];
+        questionText.textContent = question.question;
+        answerInput.value = '';
+        resultText.textContent = '';
+    } else {
+        questionText.textContent = 'Тест завершен!';
+        answerInput.style.display = 'none';
+        document.getElementById('check-answer').style.display = 'none';
+        document.getElementById('speak-question').style.display = 'none';
+        document.getElementById('next-question').style.display = 'none';
+    }
 }
 
-.container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 300px;
-}
+// Функция для проверки ответа
+document.getElementById('check-answer').addEventListener('click', () => {
+    const answerInput = document.getElementById('answer-input');
+    const resultText = document.getElementById('result-text');
+    const question = questions[currentQuestionIndex];
 
-h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
-}
+    if (answerInput.value.toLowerCase() === question.answer.toLowerCase()) {
+        resultText.textContent = 'Правильно!';
+        resultText.style.color = 'green';
+    } else {
+        resultText.textContent = `Неправильно. Правильный ответ: ${question.answer}`;
+        resultText.style.color = 'red';
+    }
+});
 
-#question-container, #result-container {
-    margin-bottom: 20px;
-}
+// Функция для озвучки вопроса
+document.getElementById('speak-question').addEventListener('click', () => {
+    const question = questions[currentQuestionIndex];
+    speakText(question.question);
+});
 
-input {
-    padding: 10px;
-    font-size: 16px;
-    width: 100%;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+// Функция для перехода к следующему вопросу
+document.getElementById('next-question').addEventListener('click', () => {
+    currentQuestionIndex++;
+    showQuestion();
+});
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 5px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: #fff;
-}
+// Функция для озвучки текста
+function speakText(text) {
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
 
-button:hover {
-    background-color: #0056b3;
-}
+        const voices = window.speechSynthesis.getVoices();
+        const femaleVoice = voices.find(voice => voice.lang === 'en-US' && voice.name.includes('Female'));
 
-#result-text {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
+        if (femaleVoice) {
+            utterance.voice = femaleVoice;
+        } else {
+            console.warn('Женский английский голос не найден. Будет использован голос по умолчанию.');
+        }
+
+        utterance.rate = 0.8;
+        utterance.pitch = 1;
+
+        window.speechSynthesis.speak(utterance);
+    } else {
+        alert('Ваш браузер не поддерживает озвучку текста.');
+    }
 }
