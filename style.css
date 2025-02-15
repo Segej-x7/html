@@ -27,13 +27,24 @@ h1 {
     margin-bottom: 20px;
 }
 
-input {
+#options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.option {
     padding: 10px;
     font-size: 16px;
-    width: 100%;
-    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+.option:hover {
+    background-color: #e0e0e0;
 }
 
 button {
