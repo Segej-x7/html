@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Озвучка русских слов</title>
+    <title>Озвучка английских слов</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,8 +24,8 @@
     </style>
 </head>
 <body>
-    <h1>Озвучка русских слов</h1>
-    <input type="text" id="textToSpeak" placeholder="Введите слово на русском">
+    <h1>Озвучка английских слов</h1>
+    <input type="text" id="textToSpeak" placeholder="Введите слово на английском">
     <button onclick="speakText()">Озвучить</button>
 
     <script>
@@ -35,16 +35,16 @@
             // Проверяем поддержку Web Speech API
             if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.lang = 'ru-RU'; // Устанавливаем язык (русский)
+                utterance.lang = 'en-US'; // Явно указываем язык (американский английский)
 
-                // Поиск подходящего голоса для русского языка
+                // Поиск подходящего голоса
                 const voices = window.speechSynthesis.getVoices();
-                const russianVoice = voices.find(voice => voice.lang === 'ru-RU');
+                const englishVoice = voices.find(voice => voice.lang === 'en-US');
 
-                if (russianVoice) {
-                    utterance.voice = russianVoice; // Устанавливаем подходящий голос
+                if (englishVoice) {
+                    utterance.voice = englishVoice; // Устанавливаем подходящий голос
                 } else {
-                    console.warn('Подходящий русский голос не найден. Будет использован голос по умолчанию.');
+                    console.warn('Подходящий английский голос не найден. Будет использован голос по умолчанию.');
                 }
 
                 utterance.rate = 1; // Скорость речи (1 - нормальная скорость)
