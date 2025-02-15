@@ -10,9 +10,13 @@ fetch('words.json')
     })
     .catch(error => console.error('Ошибка загрузки вопросов:', error));
 
-// Функция для перемешивания массива
+// Функция для перемешивания массива (алгоритм Фишера-Йетса)
 function shuffleArray(array) {
-    return array.sort(() => Math.random() - 0.5);
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1)); // Случайный индекс от 0 до i
+        [array[i], array[j]] = [array[j], array[i]]; // Меняем местами элементы
+    }
+    return array;
 }
 
 // Функция для отображения вопроса и вариантов ответа
