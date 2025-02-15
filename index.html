@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Озвучка английских слов</title>
+    <title>Озвучка русских слов</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,8 +24,8 @@
     </style>
 </head>
 <body>
-    <h1>Озвучка английских слов</h1>
-    <input type="text" id="textToSpeak" placeholder="Введите слово на английском">
+    <h1>Озвучка русских слов</h1>
+    <input type="text" id="textToSpeak" placeholder="Введите слово на русском">
     <button onclick="speakText()">Озвучить</button>
 
     <script>
@@ -35,7 +35,18 @@
             // Проверяем поддержку Web Speech API
             if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.lang = 'en-US'; // Устанавливаем язык озвучки (английский)
+                utterance.lang = 'ru-RU'; // Устанавливаем язык (русский)
+
+                // Поиск подходящего голоса для русского языка
+                const voices = window.speechSynthesis.getVoices();
+                const russianVoice = voices.find(voice => voice.lang === 'ru-RU');
+
+                if (russianVoice) {
+                    utterance.voice = russianVoice; // Устанавливаем подходящий голос
+                } else {
+                    console.warn('Подходящий русский голос не найден. Будет использован голос по умолчанию.');
+                }
+
                 utterance.rate = 1; // Скорость речи (1 - нормальная скорость)
                 utterance.pitch = 1; // Высота голоса (1 - нормальная высота)
 
@@ -45,6 +56,11 @@
                 alert('Ваш браузер не поддерживает озвучку текста.');
             }
         }
+
+        // Загружаем голоса, если они еще не загружены
+        window.speechSynthesis.onvoiceschanged = () => {
+            console.log('Голоса загружены.');
+        };
     </script>
 </body>
 </html>
