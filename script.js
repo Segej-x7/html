@@ -10,39 +10,62 @@ fetch('words.json')
     })
     .catch(error => console.error('Ошибка загрузки вопросов:', error));
 
-// Функция для отображения вопроса
+// Функция для отображения вопроса и вариантов ответа
 function showQuestion() {
     const questionText = document.getElementById('question-text');
-    const answerInput = document.getElementById('answer-input');
+    const optionsContainer = document.getElementById('options-container');
     const resultText = document.getElementById('result-text');
 
     if (currentQuestionIndex < questions.length) {
         const question = questions[currentQuestionIndex];
         questionText.textContent = question.question;
-        answerInput.value = '';
+
+        // Очищаем контейнер с вариантами ответа
+        optionsContainer.innerHTML = '';
+
+        // Добавляем варианты ответа
+        question.options.forEach((option, index) => {
+            const optionElement = document.createElement('div');
+            optionElement.classList.add('option');
+            optionElement.textContent = option;
+            optionElement.addEventListener('click', () => selectOption(optionElement));
+            optionsContainer.appendChild(optionElement);
+        });
+
         resultText.textContent = '';
     } else {
         questionText.textContent = 'Тест завершен!';
-        answerInput.style.display = 'none';
+        optionsContainer.style.display = 'none';
         document.getElementById('check-answer').style.display = 'none';
         document.getElementById('speak-question').style.display = 'none';
         document.getElementById('next-question').style.display = 'none';
     }
 }
 
+// Функция для выбора варианта ответа
+function selectOption(selectedOption) {
+    const options = document.querySelectorAll('.option');
+    options.forEach(option => option.classList.remove('selected'));
+    selectedOption.classList.add('selected');
+}
+
 // Функция для проверки ответа
 document.getElementById('check-answer').addEventListener('click', () => {
-    const answerInput = document.getElementById('answer-input');
+    const selectedOption = document.querySelector('.option.selected');
     const resultText = document.getElementById('result-text');
     const question = questions[currentQuestionIndex];
 
-    if (answerInput.value.toLowerCase() === question.answer.toLowerCase()) {
-        resultText.textContent = 'Правильно!';
-        resultText.style.color = 'green';
+    if (selectedOption) {
+        if (selectedOption.textContent === question.answer) {
+            resultText.textContent = 'Правильно!';
+            resultText.style.color = 'green';
+        } else {
+            resultText.textContent = `Неправильно. Правильный ответ: ${question.answer}`;
+            resultText.style.color = 'red';
+        }
     } else {
-        resultText.textContent = `Неправильно. Правильный ответ: ${question.answer}`;
-        resultText.style.color = 'red';
-    }
+        resultText.textContent = 'Выберите вариант ответа!';
+        }
 });
 
 // Функция для озвучки вопроса
