@@ -3,71 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Озвучка английских слов</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        input {
-            padding: 10px;
-            font-size: 16px;
-            width: 300px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-    </style>
+    <title>Тест по английскому языку</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Озвучка английских слов</h1>
-    <input type="text" id="textToSpeak" placeholder="Введите слово на английском">
-    <button onclick="speakText()">Озвучить</button>
+    <div class="container">
+        <h1>Тест по английскому языку</h1>
+        <div id="question-container">
+            <p id="question-text"></p>
+            <input type="text" id="answer-input" placeholder="Введите ваш ответ">
+            <button id="check-answer">Проверить</button>
+            <button id="speak-question">Озвучить вопрос</button>
+        </div>
+        <div id="result-container">
+            <p id="result-text"></p>
+            <button id="next-question">Следующий вопрос</button>
+        </div>
+    </div>
 
-    <script>
-        let isSpeaking = false;
-
-        function speakText() {
-            if (isSpeaking) return;
-
-            const textToSpeak = document.getElementById('textToSpeak').value;
-
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.lang = 'en-US';
-
-                const voices = window.speechSynthesis.getVoices();
-                const femaleVoice = voices.find(voice => voice.lang === 'en-US' && voice.name.includes('Female'));
-
-                if (femaleVoice) {
-                    utterance.voice = femaleVoice; // Устанавливаем женский голос
-                } else {
-                    console.warn('Женский английский голос не найден. Будет использован голос по умолчанию.');
-                }
-
-                utterance.rate = 0.8; // Скорость речи
-                utterance.pitch = 1; // Высота голоса
-
-                isSpeaking = true;
-
-                utterance.onend = () => {
-                    isSpeaking = false;
-                };
-
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert('Ваш браузер не поддерживает озвучку текста.');
-            }
-        }
-
-        // Инициализация голосов при загрузке страницы
-        window.speechSynthesis.onvoiceschanged = () => {
-            console.log('Голоса загружены.');
-        };
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
